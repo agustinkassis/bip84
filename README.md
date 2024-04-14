@@ -1,4 +1,4 @@
-# BIP84
+# BIP84 (Regtest support)
 
 Derives segwit + bech32 addresses from seed, zprv/zpub and vprv/vpub in javascript
 
