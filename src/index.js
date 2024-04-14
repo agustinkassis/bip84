@@ -1,8 +1,8 @@
 const { bip32, networks, payments } = require('bitcoinjs-lib')
     , b58 = require('bs58check')
     , bip39 = require('bip39')
-    , bitcoinPubTypes = { mainnet: { zprv: '04b2430c', zpub: '04b24746'}, testnet: { vprv: '045f18bc', vpub: '045f1cf6'} }
-    , bitcoinNetworks = { mainnet: networks.bitcoin, testnet: networks.testnet }
+    , bitcoinPubTypes = { mainnet: { zprv: '04b2430c', zpub: '04b24746'}, testnet: { vprv: '045f18bc', vpub: '045f1cf6'}, regtest: { vprv: '045f18bc', vpub: '045f1cf6' } }
+    , bitcoinNetworks = { mainnet: networks.bitcoin, testnet: networks.testnet, regtest: networks.regtest }
 
 /**
  * Constructor
@@ -235,6 +235,14 @@ fromZPub.prototype.toNode = function (zpub) {
     buf.writeInt32BE(this.networks.testnet.bip32.public, 0)
     buffer = Buffer.concat([buf, key]) // vpub
     this.network = this.networks.testnet
+    this.isTestnet = true
+  }
+
+  if (Object.values(this.pubTypes.regtest).includes(version.toString('hex'))) {
+    const buf = Buffer.allocUnsafe(4)
+    buf.writeInt32BE(this.networks.regtest.bip32.public, 0)
+    buffer = Buffer.concat([buf, key]) // vpub
+    this.network = this.networks.regtest
     this.isTestnet = true
   }
 
