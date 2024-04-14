@@ -230,14 +230,6 @@ fromZPub.prototype.toNode = function (zpub) {
     this.isTestnet = false
   }
 
-  if (Object.values(this.pubTypes.testnet).includes(version.toString('hex'))) {
-    const buf = Buffer.allocUnsafe(4)
-    buf.writeInt32BE(this.networks.testnet.bip32.public, 0)
-    buffer = Buffer.concat([buf, key]) // vpub
-    this.network = this.networks.testnet
-    this.isTestnet = true
-  }
-
   if (Object.values(this.pubTypes.regtest).includes(version.toString('hex'))) {
     const buf = Buffer.allocUnsafe(4)
     buf.writeInt32BE(this.networks.regtest.bip32.public, 0)
